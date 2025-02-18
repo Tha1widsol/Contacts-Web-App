@@ -8,8 +8,8 @@ import json
 class ContactTests(TestCase):
     client = APIClient()
     mock_data = {
-        'first_name': 'Kelvin',
-        'surname': 'Lai',
+        'first_name': 'John',
+        'surname': 'Doe',
         'email': 'test@gmail.com',
         'phone': '0000000000',
         'mobile': '1111111111'
@@ -37,8 +37,8 @@ class ContactTests(TestCase):
         )
          
          updated_contact = {
-            'first_name': 'Kelvin',
-            'surname': 'Lai',
+            'first_name': 'John',
+            'surname': 'Doe',
             'email': 'john@example.com',
             'phone': '123456789',
             'mobile': '987654321'
@@ -47,8 +47,8 @@ class ContactTests(TestCase):
          contact.refresh_from_db() 
 
          self.assertEquals(response.status_code, 200) 
-         self.assertEquals(contact.first_name, 'Kelvin') 
-         self.assertEquals(contact.surname, 'Lai')
+         self.assertEquals(contact.first_name, 'John') 
+         self.assertEquals(contact.surname, 'Doe')
     
     def test_delete_contact(self):
         contact = Contact.objects.create(

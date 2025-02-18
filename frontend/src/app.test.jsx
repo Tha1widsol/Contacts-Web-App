@@ -8,39 +8,39 @@ import { store } from "./redux/store";
 jest.mock("axios");
 const mockedAxios = axios;
 
-const mock_data = {
+const mockData = {
   id: 0,
-  first_name: "Kelvin",
-  surname: "Lai",
+  first_name: "John",
+  surname: "Doe",
   email: "test@gmail.com",
   phone: "0123456789012",
   mobile: "0123456789012",
 };
 
 const createContact = async () => {
-  mockedAxios.post.mockResolvedValue({ data: mock_data });
+  mockedAxios.post.mockResolvedValue({ data: mockData });
 
   fireEvent.click(screen.getByText(/Add Contact/i));
 
   fireEvent.change(screen.getByLabelText(/First Name/i), {
-    target: { value: mock_data.first_name}
+    target: { value: mockData.first_name}
   });
   fireEvent.change(screen.getByLabelText(/Surname/i), {
-    target: { value: mock_data.surname },
+    target: { value: mockData.surname },
   });
   fireEvent.change(screen.getByLabelText(/Email/i), {
-    target: { value: mock_data.email },
+    target: { value: mockData.email },
   });
   fireEvent.change(screen.getByLabelText(/Phone/i), {
-    target: { value: mock_data.phone },
+    target: { value: mockData.phone },
   });
   fireEvent.change(screen.getByLabelText(/Mobile/i), {
-    target: { value: mock_data.mobile },
+    target: { value: mockData.mobile },
   });
   fireEvent.click(screen.getByText(/Submit/i));
 
   await waitFor(() => {
-    expect(screen.getByText(new RegExp(mock_data.first_name, "i"))).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(mockData.first_name, "i"))).toBeInTheDocument();
   });
 };
 
@@ -60,15 +60,15 @@ describe("This should test managing contacts", () => {
     await waitFor(() => {
       expect(mockedAxios.post).toHaveBeenCalledTimes(1);
       expect(mockedAxios.post).toHaveBeenCalledWith(`/api/contacts`, expect.any(Object));
-      expect(screen.getByText(new RegExp(mock_data.first_name, "i"))).toBeInTheDocument();
-      expect(screen.getByText(new RegExp(mock_data.surname, "i"))).toBeInTheDocument();
-      expect(screen.getByText(new RegExp(mock_data.email, "i"))).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(mockData.first_name, "i"))).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(mockData.surname, "i"))).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(mockData.email, "i"))).toBeInTheDocument();
     });
   });
 
   test("Should edit a contact via the name", async () => {
     const edited_mock_data = {
-      ...mock_data,
+      ...mockData,
       first_name: "Test"
     }
 
@@ -80,11 +80,11 @@ describe("This should test managing contacts", () => {
 
     await waitFor(() => {
       expect(mockedAxios.put).toHaveBeenCalledTimes(1);
-      expect(mockedAxios.put).toHaveBeenCalledWith(`/api/contacts/${mock_data.id}`, expect.any(Object));
+      expect(mockedAxios.put).toHaveBeenCalledWith(`/api/contacts/${mockData.id}`, expect.any(Object));
     });
 
     await waitFor(() => {
-      expect(screen.queryByText(new RegExp(mock_data.first_name, "i"))).not.toBeInTheDocument();
+      expect(screen.queryByText(new RegExp(mockData.first_name, "i"))).not.toBeInTheDocument();
       expect(screen.queryByText(new RegExp(edited_mock_data.first_name))).toBeInTheDocument();
     });
 
@@ -92,20 +92,20 @@ describe("This should test managing contacts", () => {
   })
 
   test("should delete a contact and handle the API call", async () => {
-    mockedAxios.delete.mockResolvedValue({ data: mock_data.id });
+    mockedAxios.delete.mockResolvedValue({ data: mockData.id });
     const deleteButton = screen.getByText(/Delete/i);
     fireEvent.click(deleteButton);
     fireEvent.click(screen.getByText(/Confirm/i));
 
     await waitFor(() => {
       expect(mockedAxios.delete).toHaveBeenCalledTimes(1);
-      expect(mockedAxios.delete).toHaveBeenCalledWith(`/api/contacts/${mock_data.id}`);
+      expect(mockedAxios.delete).toHaveBeenCalledWith(`/api/contacts/${mockData.id}`);
     });
 
     await waitFor(() => {
-      expect(screen.queryByText(new RegExp(mock_data.first_name, "i"))).not.toBeInTheDocument();
-      expect(screen.queryByText(new RegExp(mock_data.surname, "i"))).not.toBeInTheDocument();
-      expect(screen.queryByText(new RegExp(mock_data.email, "i"))).not.toBeInTheDocument();
+      expect(screen.queryByText(new RegExp(mockData.first_name, "i"))).not.toBeInTheDocument();
+      expect(screen.queryByText(new RegExp(mockData.surname, "i"))).not.toBeInTheDocument();
+      expect(screen.queryByText(new RegExp(mockData.email, "i"))).not.toBeInTheDocument();
     });
   });
 });
@@ -125,19 +125,19 @@ describe("Test validate form" , () => {
     fireEvent.click(screen.getByText(/Add Contact/i));
 
     fireEvent.change(screen.getByLabelText(/First Name/i), {
-      target: { value: mock_data.first_name },
+      target: { value: mockData.first_name },
     });
     fireEvent.change(screen.getByLabelText(/Surname/i), {
-      target: { value: mock_data.surname },
+      target: { value: mockData.surname },
     });
     fireEvent.change(screen.getByLabelText(/Email/i), {
-      target: { value: "testgmail.com" }, // Invalid email
+      target: { value: "testgmail.com" },
     });
     fireEvent.change(screen.getByLabelText(/Phone/i), {
-      target: { value: mock_data.phone },
+      target: { value: mockData.phone },
     });
     fireEvent.change(screen.getByLabelText(/Mobile/i), {
-      target: { value: mock_data.mobile },
+      target: { value: mockData.mobile },
     });
     fireEvent.click(screen.getByText(/Submit/i));
 
@@ -148,19 +148,19 @@ describe("Test validate form" , () => {
     fireEvent.click(screen.getByText(/Add Contact/i));
 
     fireEvent.change(screen.getByLabelText(/First Name/i), {
-      target: { value: "sfjsf44" }, // Invalid first name
+      target: { value: "sfjsf44" },
     });
     fireEvent.change(screen.getByLabelText(/Surname/i), {
-      target: { value: mock_data.surname },
+      target: { value: mockData.surname },
     });
     fireEvent.change(screen.getByLabelText(/Email/i), {
-      target: { value: mock_data.email },
+      target: { value: mockData.email },
     });
     fireEvent.change(screen.getByLabelText(/Phone/i), {
-      target: { value: mock_data.phone },
+      target: { value: mockData.phone },
     });
     fireEvent.change(screen.getByLabelText(/Mobile/i), {
-      target: { value: mock_data.mobile },
+      target: { value: mockData.mobile },
     });
     fireEvent.click(screen.getByText(/Submit/i));
 
@@ -171,19 +171,19 @@ describe("Test validate form" , () => {
     fireEvent.click(screen.getByText(/Add Contact/i));
 
     fireEvent.change(screen.getByLabelText(/First Name/i), {
-      target: { value: mock_data.first_name },
+      target: { value: mockData.first_name },
     });
     fireEvent.change(screen.getByLabelText(/Surname/i), {
       target: { value: "wsfrw4" }, 
     });
     fireEvent.change(screen.getByLabelText(/Email/i), {
-      target: { value: mock_data.email },
+      target: { value: mockData.email },
     });
     fireEvent.change(screen.getByLabelText(/Phone/i), {
-      target: { value: mock_data.phone },
+      target: { value: mockData.phone },
     });
     fireEvent.change(screen.getByLabelText(/Mobile/i), {
-      target: { value: mock_data.mobile },
+      target: { value: mockData.mobile },
     });
     fireEvent.click(screen.getByText(/Submit/i));
 
@@ -194,19 +194,19 @@ describe("Test validate form" , () => {
     fireEvent.click(screen.getByText(/Add Contact/i));
 
     fireEvent.change(screen.getByLabelText(/First Name/i), {
-      target: { value: mock_data.first_name },
+      target: { value: mockData.first_name },
     });
     fireEvent.change(screen.getByLabelText(/Surname/i), {
-      target: { value: mock_data.surname },
+      target: { value: mockData.surname },
     });
     fireEvent.change(screen.getByLabelText(/Email/i), {
-      target: { value: mock_data.email },
+      target: { value: mockData.email },
     });
     fireEvent.change(screen.getByLabelText(/Phone/i), {
       target: { value: "23424jre" },
     });
     fireEvent.change(screen.getByLabelText(/Mobile/i), {
-      target: { value: mock_data.mobile },
+      target: { value: mockData.mobile },
     });
     fireEvent.click(screen.getByText(/Submit/i));
 
@@ -217,19 +217,19 @@ describe("Test validate form" , () => {
     fireEvent.click(screen.getByText(/Add Contact/i));
 
     fireEvent.change(screen.getByLabelText(/First Name/i), {
-      target: { value: mock_data.first_name },
+      target: { value: mockData.first_name },
     });
     fireEvent.change(screen.getByLabelText(/Surname/i), {
-      target: { value: mock_data.surname },
+      target: { value: mockData.surname },
     });
     fireEvent.change(screen.getByLabelText(/Email/i), {
-      target: { value: mock_data.email },
+      target: { value: mockData.email },
     });
     fireEvent.change(screen.getByLabelText(/Phone/i), {
       target: { value: "2344" }, 
     });
     fireEvent.change(screen.getByLabelText(/Mobile/i), {
-      target: { value: mock_data.mobile },
+      target: { value: mockData.mobile },
     });
     fireEvent.click(screen.getByText(/Submit/i));
 
@@ -240,16 +240,16 @@ describe("Test validate form" , () => {
     fireEvent.click(screen.getByText(/Add Contact/i));
 
     fireEvent.change(screen.getByLabelText(/First Name/i), {
-      target: { value: mock_data.first_name },
+      target: { value: mockData.first_name },
     });
     fireEvent.change(screen.getByLabelText(/Surname/i), {
-      target: { value: mock_data.surname },
+      target: { value: mockData.surname },
     });
     fireEvent.change(screen.getByLabelText(/Email/i), {
-      target: { value: mock_data.email },
+      target: { value: mockData.email },
     });
     fireEvent.change(screen.getByLabelText(/Phone/i), {
-      target: { value: mock_data.phone },
+      target: { value: mockData.phone },
     });
     fireEvent.change(screen.getByLabelText(/Mobile/i), {
       target: { value: "44343j34" }, 
@@ -263,16 +263,16 @@ describe("Test validate form" , () => {
     fireEvent.click(screen.getByText(/Add Contact/i));
 
     fireEvent.change(screen.getByLabelText(/First Name/i), {
-      target: { value: mock_data.first_name },
+      target: { value: mockData.first_name },
     });
     fireEvent.change(screen.getByLabelText(/Surname/i), {
-      target: { value: mock_data.surname },
+      target: { value: mockData.surname },
     });
     fireEvent.change(screen.getByLabelText(/Email/i), {
-      target: { value: mock_data.email },
+      target: { value: mockData.email },
     });
     fireEvent.change(screen.getByLabelText(/Phone/i), {
-      target: { value: mock_data.phone },
+      target: { value: mockData.phone },
     });
     fireEvent.change(screen.getByLabelText(/Mobile/i), {
       target: { value: "4434" }, 

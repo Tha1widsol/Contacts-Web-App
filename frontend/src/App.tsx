@@ -2,19 +2,11 @@ import { useEffect, useState } from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, Typography, Card, Box, Divider } from "@mui/material";
 import "./App.css";
 import { useAppDispatch, useAppSelector } from "./redux/hooks";
-import { addContact, deleteContact, editContact, fetchContacts } from "./redux/features/contactsSlice";
+import { addContact, ContactProps, deleteContact, editContact, fetchContacts } from "./redux/features/contactsSlice";
 
-type Contact = {
-  id?: number,
-  first_name: string;
-  surname: string;
-  email: string;
-  phone: string;
-  mobile: string;
-};
 
-export function FormPopup({ onClose, onAdd, contact }: { onClose: () => void; onAdd: (contact: Contact) => void, contact?: Contact}) {
-  const [form, setForm] = useState<Contact>({
+export function FormPopup({ onClose, onAdd, contact }: { onClose: () => void; onAdd: (contact: ContactProps) => void, contact?: ContactProps}) {
+  const [form, setForm] = useState<ContactProps>({
     id: undefined,
     first_name: "",
     surname: "",
@@ -78,7 +70,7 @@ export function FormPopup({ onClose, onAdd, contact }: { onClose: () => void; on
       isValid = false;
     }
 
-    if (form.mobile.trim() && (!phoneRegex.test(form.mobile) || form.mobile.length < 7 || form.mobile.length > 15)) {
+    if (form.mobile?.trim() && (!phoneRegex.test(form.mobile) || form.mobile.length < 7 || form.mobile.length > 15)) {
       newErrors.push("Mobile number must contain only digits and be between 7 and 15 digits.");
       isValid = false;
     }
@@ -87,16 +79,31 @@ export function FormPopup({ onClose, onAdd, contact }: { onClose: () => void; on
     return isValid;
   };
   
+  
   const handleSubmit = () => {
+    const capitalize = (text: string) => {
+     return text.replace(/\b\w/g, (char) => char.toUpperCase())
+    }
     if (!validateForm()) {
-      window.scrollTo(0, 0); 
+      window.scrollTo(0, 0);
       return;
     }
- 
-    if (contact) dispatch(editContact(form));
-    else onAdd(form);
+  
+    const capitalizedForm = {
+      ...form,
+      first_name: capitalize(form.first_name),
+      surname: capitalize(form.surname),
+      email: form.email.toLowerCase(),
+      phone: form.phone,
+      mobile: form.mobile,
+    };
+  
+    if (contact) dispatch(editContact(capitalizedForm));
+    else onAdd(capitalizedForm);
+    
     onClose();
   };
+  
   
 
   return (
@@ -191,14 +198,14 @@ function App() {
   const contacts = useAppSelector((state) => state.contacts.values)
   const [formPopup, setFormPopup] = useState(false);
   const [deletePopup, setDeletePopup] = useState(false)
-  const [selectedContact, setSelectedContact] = useState<Contact>()
+  const [selectedContact, setSelectedContact] = useState<ContactProps>()
   const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(fetchContacts())
   }, [dispatch])
 
-  const handleOpenEdit = (contact: Contact) => {
+  const handleOpenEdit = (contact: ContactProps) => {
     setSelectedContact(contact)
     setFormPopup(true)
   }
@@ -209,7 +216,7 @@ function App() {
   }
 
   
-  const handleOpenDelete = (contact: Contact) => {
+  const handleOpenDelete = (contact: ContactProps) => {
     setSelectedContact(contact)
     setDeletePopup(true)
   }
@@ -249,8 +256,8 @@ function App() {
                   {contact.mobile}
                 </Typography>
               </Box>
-              <Button color="secondary" onClick={() => handleOpenEdit(contact as Contact)}>Edit</Button>
-              <Button color="error" onClick={() => handleOpenDelete(contact as Contact)}>Delete</Button>
+              <Button color="secondary" onClick={() => handleOpenEdit(contact as ContactProps)}>Edit</Button>
+              <Button color="error" onClick={() => handleOpenDelete(contact as ContactProps)}>Delete</Button>
             </Card>
           </Box>
         ))

@@ -1,7 +1,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit"
 import axios, {AxiosError} from "axios"
 
-type ContactProps = {
+export type ContactProps = {
     id?: number;
     first_name: string,
     surname: string,
