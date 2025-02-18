@@ -1,5 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit"
 import {combineReducers} from "redux"
+import contactsReducer from "./features/contactsSlice"
 import storage from "redux-persist/lib/storage"
 import {
     persistReducer
@@ -12,9 +13,8 @@ import {
   }
 
   const reducers = combineReducers({
-
+    contacts: contactsReducer
    })
-
 
    const persistedReducer = persistReducer(persistConfig, reducers)
 
@@ -31,3 +31,4 @@ import {
    
    export type RootState = ReturnType<typeof store.getState>
    export type AppDispatch = typeof store.dispatch
+
