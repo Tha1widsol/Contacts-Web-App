@@ -32,12 +32,12 @@ Once it's up and running, copy the local URL from the terminal (e.g., http://loc
 
   Ensure you have Node.js, Python, and Pip setup
 
-  Go into backend directory and Install the required dependencies: "pip install -r requirements.txt"
+  Go into backend directory and install the required dependencies: "pip install -r requirements.txt"
 
   Start the Django server: "python manage.py runserver"
   
   Frontend Setup (React + Vite)
-  Open a new terminal and navigate to the frontend directory:
+  Open a new terminal and navigate to the frontend directory
   
   Install the required dependencies using the command "npm install"
   
