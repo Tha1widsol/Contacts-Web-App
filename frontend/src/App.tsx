@@ -33,7 +33,7 @@ export function FormPopup({ onClose, onAdd, contact }: { onClose: () => void; on
   
     const nameRegex = /^[A-Za-z]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]+$/;
+    const phoneRegex = /^[0-9 ]+$/;
   
     if (!form.first_name.trim()) {
       newErrors.push("First name is required.");

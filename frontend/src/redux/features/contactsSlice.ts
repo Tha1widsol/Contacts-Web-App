@@ -20,11 +20,13 @@ const initialState = {
     values: []
 } as ContactState
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL 
+
 export const fetchContacts = createAsyncThunk(
     "contacts/fetchContacts",
      async (_, {rejectWithValue}) => {
        try {
-            const response = await axios.get("/api/contacts")
+            const response = await axios.get(`${BACKEND_URL}/api/contacts`)
             return response.data
         } catch (error) {
             const axiosError = error as AxiosError<{ message?: string }>;
@@ -39,7 +41,7 @@ export const addContact = createAsyncThunk(
     "contacts/addContact",
      async (contact: ContactProps, {rejectWithValue}) => {
        try {
-            const response = await axios.post(`/api/contacts`, contact)
+            const response = await axios.post(`${BACKEND_URL}/api/contacts`, contact)
             return response.data
         } catch (error) {
             const axiosError = error as AxiosError<{ message?: string }>;
@@ -54,7 +56,7 @@ export const deleteContact = createAsyncThunk(
     "contacts/deleteContact",
      async (contactId: number, {rejectWithValue}) => {
        try {
-            const response = await axios.delete(`/api/contacts/${contactId}`)
+            const response = await axios.delete(`${BACKEND_URL}/api/contacts/${contactId}`)
             return {...response.data, id: contactId}
         } catch (error) {
             const axiosError = error as AxiosError<{ message?: string }>;
@@ -69,7 +71,7 @@ export const editContact = createAsyncThunk(
     "contacts/editContact",
      async (contact: ContactProps, {rejectWithValue}) => {
        try {
-            const response = await axios.put(`/api/contacts/${contact.id}`, contact)
+            const response = await axios.put(`${BACKEND_URL}/api/contacts/${contact.id}`, contact)
             return response.data
         } catch (error) {
             const axiosError = error as AxiosError<{ message?: string }>;
