@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - DEBUG=1
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - node_modules:/app/node_modules  # Named volume for node_modules
+    environment:
+      - NODE_ENV=development
+
+volumes:
+  pgdata: {}
+  node_modules: {}  # Ensure named volume for node_modules
