@@ -49,27 +49,31 @@ Once it's up and running, copy the local URL from the terminal (e.g., http://loc
 
 ### 1. Set up backend
 
-Package your Django app into a Docker container.
-Configure Elastic Beanstalk or EC2 to host the backend.
-Use AWS Systems Manager Parameter Store or Secrets Manager for environment variables.
-Set up PostgreSQL on RDS, migrate your database, and update DATABASE_URL.
+1. Ensure requirements.txt or Pipfile is up to date
+2. Set up Gunicorn for WSGI server
+3. Configure CORS to allow requests from the frontend domain
+4. Set up Django ALLOWED_HOSTS properly
+5. Use env variables for secrets (DB, API keys)
+
+ #### Deploy Via (AWS Elastic Beanstalk)
+
+1. Install AWS CLI & EB CLI (pip install awsebcli)
+2. Initialize Elastic Beanstalk (eb init)
+3. Deploy App (eb create my-django-api)
+4. Attach RDS Database (PostgreSQL/MySQL)
+5. Configure Environment Variables in AWS (e.g., DATABASE_URL, SECRET_KEY)
+6. Enable HTTPS with an SSL certificate
 
 ### 2. Set up frontend
 
-Build the frontend (npm run build).
-Upload the build files to an S3 bucket.
-Use CloudFront as a CDN for performance.
-Update API requests to use the deployed backend URL.
+Run vite build → Generates static files in dist/ and minify, optimize assets
 
-### 3. CI/CD Pipeline
-
-Use GitHub Actions, AWS CodePipeline, or Amplify CI/CD to automate deployments.
-
-
-### 4. Security & Monitoring
-
-Use AWS IAM roles for permissions.
-Enable CloudWatch logs for monitoring.
-Use AWS WAF and Shield for security.
+#### Deploy Via (AWS S3 + CloudFront)
+1. Create an S3 Bucket (Enable public read or use CloudFront)
+2. Upload the dist/ folder to S3
+3. Enable Static Website Hosting on S3
+4. Set Up AWS CloudFront (CDN for better performance)
+5. Attach a custom domain with Route 53
+6. Enable HTTPS using AWS Certificate Manager
 
 
