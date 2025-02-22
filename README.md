@@ -5,11 +5,9 @@ A simple web application for managing contacts, built with a React (Vite) fronte
 🚀 Getting Started:
   ---
   
-  Ensure you have Git installed: https://git-scm.com/downloads
-  
-  Run the command "git clone https://github.com/Tha1widsol/Contacts-Web-App.git" on your terminal
-  
-  Go into the app folder
+  1. Ensure you have Git installed: https://git-scm.com/download
+  2. Run the command "git clone https://github.com/Tha1widsol/Contacts-Web-App.git" on your terminal
+  3. Go into the app folder
   
 You can set up and run the application in two ways:
  
@@ -17,33 +15,26 @@ You can set up and run the application in two ways:
 
 ## 🐳 1. Running the App with Docker (Recommended)
 
-Install Docker and ensure it's running on your machine - https://www.docker.com/
-
-Navigate to the project directory.
-Run the following command to build and start the app:
-"docker-compose up --build".
-
-Wait for all dependencies to install and for the containers to start.
-Once it's up and running, copy the local URL from the terminal (e.g., http://localhost:5173/) and open it in your browser.
-
+1. Install Docker and ensure it's running on your machine - https://www.docker.com/
+2. Navigate to the project directory and run the following command to build and start the app: "docker-compose up --build".
+3. Wait for all dependencies to install and for the containers to start.
+4. Once it's up and running, copy the local URL from the terminal (e.g., http://localhost:5173/) and open it in your browser.
+   
 ---
 
 ## 🛠 2. Manual Installation
 
-  Ensure you have Node.js, Python, and Pip setup
-
-  Go into backend directory and install the required dependencies: "pip install -r requirements.txt"
-
-  Start the Django server: "python manage.py runserver"
+  1. Ensure you have Node.js, Python, and Pip setup
+  2. Go into backend directory and install the required dependencies: "pip install -r requirements.txt"
+  3. Start the Django server: "python manage.py runserver"
   
   Frontend Setup (React + Vite)
-  Open a new terminal and navigate to the frontend directory
   
-  Install the required dependencies using the command "npm install"
-  
-  Start the React development server with the command "npm run dev"
-  
-  Copy the local URL from the terminal (e.g., http://localhost:5173/) and open it in your browser.
+  1. Open a new terminal and navigate to the frontend directory
+  2. Install the required dependencies using the command "npm install"
+  3. Start the React development server with the command "npm run dev"
+  4. Copy the local URL from the terminal (e.g., http://localhost:5173/) and open it in your browser.
+
 
 ## Instructions to deploy to production using AWS
 
