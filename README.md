@@ -30,10 +30,10 @@ You can set up and run the application in two ways:
   
   Frontend Setup (React + Vite)
   
-  1. Open a new terminal and navigate to the frontend directory
-  2. Install the required dependencies using the command "npm install"
-  3. Start the React development server with the command "npm run dev"
-  4. Copy the local URL from the terminal (e.g., http://localhost:5173/) and open it in your browser.
+  4. Open a new terminal and navigate to the frontend directory
+  5. Install the required dependencies using the command "npm install"
+  6. Start the React development server with the command "npm run dev"
+  7. Copy the local URL from the terminal (e.g., http://localhost:5173/) and open it in your browser.
 
 
 ## Instructions to deploy to production using AWS
