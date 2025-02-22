@@ -26,7 +26,8 @@ You can set up and run the application in two ways:
 
   1. Ensure you have Node.js, Python, and Pip setup
   2. Go into backend directory and install the required dependencies: "pip install -r requirements.txt"
-  3. Start the Django server: "python manage.py runserver"
+  3. Run: "python manage.py migrate"
+  4. Start the Django server: "python manage.py runserver"
   
   Frontend Setup (React + Vite)
   
